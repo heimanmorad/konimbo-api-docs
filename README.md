@@ -7,6 +7,7 @@
 4. [אוטנטיקציה](#user-content-אוטנטיקציה)
 5. [עימוד](#user-content-עימוד)
 6. [הגבלת קריאות](#user-content-הגבלת-קריאות)
+7. [נקודות קצה](#user-content-נקודות-קצה)
 
 ### הקדמה
 
@@ -66,3 +67,7 @@ X-Rate-Limit-Maximum | כמות הקריאות שתגרום לחסימת המש�
 X-Rate-Limit-Reset   | השעה שבה תתאפס הספירה ויהיה ניתן לבצע קריאות מחדש
 
 בעת חסימה, יוחזר מהשרת `Http Response 401 Unauthorized`
+
+### נקודות קצה
+1. [מוצרים](https://github.com/heimanmorad/konimbo-api-docs/blob/master/v1/items.md)
+2. [הזמנות](https://github.com/heimanmorad/konimbo-api-docs/blob/master/v1/orders.md)
