@@ -15,7 +15,7 @@
 ### הקדמה
 בעזרת נקודת קצה זו ניתן לקרוא קבצים מ - Amazon s3
 ### EndPoints
-* [POST /{apiVersion}/items](#user-content-יצירת-מוצר)
+* [POST /{apiVersion}/amazons](#user-content-קריאת-קובץ)
 
 ### פירוט השדות
 #### שדות פשוטים:
@@ -39,43 +39,51 @@ related_items          | Array           | כן | רשימת הids של המוצ
 
 ### אמזון
 #### תיאור
-בעזרת השירות הזה, ניתן להחזיר מידע של קובץ בתצורת XML או JSON
-
-ניתן לבקש מהשרת רק את השדות שתרצו
+בעזרת השירות הזה, ניתן להחזיר מידע של קובץ XML או JSON
 
 #### EndPoint
 ```
-POST /{apiVersion}/item/{id/code/second_code}?token={yourToken}
+POST /{apiVersion}/amazons/
 Host: api.konimbo.co.il
 ```
 
 #### Parameters
-##### בקשת שדות מסויימים
-כדי שהשרת יידע איזה שדות להחזיר יש לציין בפרמטר attributes את השדות המבוקשים מופרדים בפסיקים.
+הפרמטרים הנדרשים הם פרטי התחברות ל amazon s3 ואת ה konimbo api token
+1. token = "konimbo_api_token"
+2. Amazon file name - שם הקובץ לקיריאה
+3. Amazon bucket name - שם הבאקט שבו נמצא הקובץ
+4. Amazon region - הריג'ן שבו הבאקט נמצא
+5. Amazon file format - פורמט הקובץ - XML / JSON
+6. Access key id - amazon access key 
+7. Secret access key - amazon secret access key
+8. trigger id - מזהה הטריגר במערכת קונימבו - אופציונאלי
 
-[לרשימת השדות](#user-content-פירוט-השדות)
-
-לדוגמא: `attributes=id,price,code`
-
-במידה ולא נשלח פרמטר זה, יוחזרו כל השדות המורשים למשתמש זה.
 
 #### Responses
-* 200 - The requested item
+* 200 - The requested file's content
 * 401 - Unauthorized
 * 404 - No results found
 * 500 - Internal error
 
 #### דוגמאות
-הקריאה הבאה תחזיר את כל השדות המורשים למוצר עם הid 1234567
-```
-GET /v1/items/1234567?token=e012a2944be024a85062c2bbd27b9f61284bf2439fd87992069b84b6a4ef93ca HTTP/1.1
-Host: api.konimbo.co.il
-```
+הקריאה הבאה תחזיר את תוכן ה XML
 
-הקריאה הבאה תחזיר את השדות title,store_category_title של המוצר עם הid1234567
 ```
-GET /v1/items/1234567?token=e012a2944be024a85062c2bbd27b9f61284bf2439fd87992069b84b6a4ef93ca&attributes=title,store_category_title HTTP/1.1
+POST /{apiVersion}/amazons HTTP/1.1
 Host: api.konimbo.co.il
+Content-Type: application/json
+
+{
+  "token": "{yourToken}",
+  "amazon": {
+    "region": "value",
+    "access_key_id": "value",
+    "secret_access_key": "value",
+    "bucket_name": "value",
+    "file_name": "value",
+    "file_format": "value"
+  }
+}
 ```
 
 **ניתן לחפש לפי מק"ט או לפי מקט משני, כדי לעשות זאת יש ליצור קשר עם התמיכה**
